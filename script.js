@@ -102,7 +102,7 @@ function updateNumbers(lat, lon) {
                          2]);
   
         var options = {
-          title: "Density of  Metals, in g/cm^3",
+          title: "Amount of Power, in g/cm^3",
           width: "100%",
           height: "100%",
           bar: {groupWidth: "95%"},
