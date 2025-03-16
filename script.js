@@ -1,16 +1,16 @@
 // Initialize the map
-var map = L.map('map').setView([52.3676, 4.9041], 13); // Default to Amsterdam
+        var map = L.map('map').setView([52.3676, 4.9041], 13); // Default to Amsterdam
 
-// Add OpenStreetMap tiles
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors'
-}).addTo(map);
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
 
 var marker; // Variable to hold the marker
 let ov_data = [["Month", "Solar Radiation", { role: "style" }]]; // Global chart data
 
 google.charts.load("current", { packages: ['corechart'] });
-//google.charts.setOnLoadCallback(drawChart);
+
 
 // Function to get coordinates from an address
 function searchLocation() {
@@ -63,9 +63,12 @@ function updateNumbers(lat, lon) {
             ];
             
             const tableBody = document.querySelector("#dataTable tbody");
+
             let sum = 0, count = 0;
 
             ov_data = [ ["Month", "Solar Radiation", { role: "style" } ]];
+            tableBody.innerHTML = "";
+
             
             for (const [key, value] of Object.entries(data)) {
                 const index = parseInt(key.slice(4, 6)) - 1; // Extract month part
@@ -79,8 +82,6 @@ function updateNumbers(lat, lon) {
                     document.getElementById("averageData").innerHTML = "Average" + ": " + value.toFixed(2);
                 }
                 tableBody.appendChild(row);
-                sum += value;
-                count++;
             }
             
             drawChart(ov_data);
