@@ -6,7 +6,7 @@
     <link href= "styles/style.css" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/png" href="./Photos/Logo.png">
     <title>Title</title>
-   
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
@@ -23,11 +23,20 @@
 
     <div class="search-box">
         <input type="text" id="addressInput" placeholder="Enter an address">
-        <button onclick="searchLocation()">Search</button>
+        <button id="startButton" onclick="searchLocation()">Search</button>
     </div>
-    <div id="map"></div>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="script.js"></script>
+  
+      <div id="map"></div>
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script src="script.js"></script>
+
+      <div id="loadingCircle" style="display:none;">
+        <div class="circle"></div> <!-- This will be your spinning circle -->
+      
+  
+
+    </div>
+ 
 
     <div >
         <h2 id="averageData">

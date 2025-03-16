@@ -48,12 +48,16 @@ function searchLocation() {
         })
         .catch(error => console.error("Error fetching location:", error));
 }
-
+function stopLoading() {
+    var loadingCircle = document.getElementById('loadingCircle');
+    loadingCircle.style.display = 'none'; // Hides the loading circle
+}
 function updateNumbers(lat, lon) {
     fetch(`https://power.larc.nasa.gov/api/temporal/monthly/point?parameters=ALLSKY_SFC_SW_DWN&community=SB&longitude=${lon}&latitude=${lat}&start=2023&end=2023`)
         .then(response => response.json())
         .then(data => {
             data = data['properties']['parameter']['ALLSKY_SFC_SW_DWN']
+            stopLoading();
             console.log(data)
 
             const columnNames = [
@@ -112,3 +116,9 @@ function updateNumbers(lat, lon) {
         var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
         chart.draw(view, options);
     }
+
+
+    document.getElementById('startButton').addEventListener('click', function() {
+        var loadingCircle = document.getElementById('loadingCircle');
+        loadingCircle.style.display = 'block'; // Show the loading circle
+    });
