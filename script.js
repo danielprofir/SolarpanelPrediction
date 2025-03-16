@@ -1,12 +1,12 @@
 // Initialize the map
-var map = L.map('map').setView([52.3676, 4.9041], 13); // Default to Amsterdam
+        var map = L.map('map').setView([52.3676, 4.9041], 13); // Default to Amsterdam
 
-// Add OpenStreetMap tiles
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors'
-}).addTo(map);
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
 
-var marker; // Variable to hold the marker
+        var marker; // Variable to hold the marker
 
 // Function to get coordinates from an address
 function searchLocation() {

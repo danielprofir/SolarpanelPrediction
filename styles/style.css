@@ -1,16 +1,39 @@
-h1 {
-    color: green;
-}
 
 #map {
     width: 500px;
     height: 500px;
     margin-top: 10px;
 }
-body {
+
+.search-box {
+    margin-top: 10px;
+    margin-bottom: 10px;
+} 
+
+body, html {
+    display: flex;
+    flex-direction: column;
     font-family: Arial, sans-serif;
     text-align: center;
+    height: 100%;
+    margin: 0;
 }
-.search-box {
-    margin-bottom: 10px;
+
+/* The hero image */
+.hero-image {
+    background-image: url("D:/Source/New folder2/SolarpanelPrediction/Photos/photo.jpg");
+    height: 20%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.hero-text {
+    text-align: left;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
 }
