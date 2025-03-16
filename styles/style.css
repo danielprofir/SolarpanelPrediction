@@ -21,7 +21,7 @@ body, html {
 
 /* The hero image */
 .hero-image {
-    background-image: url("D:/Source/New folder2/SolarpanelPrediction/Photos/photo.jpg");
+    background-image: url("../Photos/photo.jpg");
     height: 20%;
     background-position: center;
     background-repeat: no-repeat;
