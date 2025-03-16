@@ -5,4 +5,12 @@ h1 {
 #map {
     width: 500px;
     height: 500px;
+    margin-top: 10px;
+}
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+.search-box {
+    margin-bottom: 10px;
 }
