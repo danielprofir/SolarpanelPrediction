@@ -1,6 +1,7 @@
 
 #map {
     width: 500px;
+    margin-left: 1%;
     height: 500px;
     margin-top: 10px;
 }
@@ -11,11 +12,12 @@
 } 
 
 body, html {
+
     display: flex;
     flex-direction: column;
     text-align: center;
     height: 100%;
-    margin: 0;
+   margin:0;
 }
 
 /* The hero image */

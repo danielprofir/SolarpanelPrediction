@@ -72,8 +72,8 @@ function updateNumbers(lat, lon) {
             
             for (const [key, value] of Object.entries(data)) {
                 const index = parseInt(key.slice(4, 6)) - 1; // Extract month part
-                const row = document.createElement("tr");
-                row.innerHTML = `<td>${columnNames[index]}</td><td>${value.toFixed(2)}</td>`;
+                //const row = document.createElement("tr");
+                //row.innerHTML = `<td>${columnNames[index]}</td><td>${value.toFixed(2)}</td>`;
                 if (index != 12)
                     ov_data.push(
                         [columnNames[index], parseFloat(value.toFixed(2)), "#000"]
@@ -81,7 +81,7 @@ function updateNumbers(lat, lon) {
                 if (index == 12){
                     document.getElementById("averageData").innerHTML = "Average" + ": " + value.toFixed(2);
                 }
-                tableBody.appendChild(row);
+                //tableBody.appendChild(row);
             }
             
             drawChart(ov_data);
