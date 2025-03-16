@@ -59,15 +59,13 @@ function updateNumbers(lat, lon) {
             ];
             
             const tableBody = document.querySelector("#dataTable tbody");
-            let sum = 0, count = 0;
+            tableBody.innerHTML = "";
             
             for (const [key, value] of Object.entries(data)) {
                 const index = parseInt(key.slice(4, 6)) - 1; // Extract month part
                 const row = document.createElement("tr");
                 row.innerHTML = `<td>${columnNames[index]}</td><td>${value.toFixed(2)}</td>`;
                 tableBody.appendChild(row);
-                sum += value;
-                count++;
             }
         })
         .catch(error => console.error("Error fetching data:", error));
