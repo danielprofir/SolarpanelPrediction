@@ -6,7 +6,11 @@
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
 
-        var marker; // Variable to hold the marker
+var marker; // Variable to hold the marker
+let ov_data = [["Month", "Solar Radiation", { role: "style" }]]; // Global chart data
+
+google.charts.load("current", { packages: ['corechart'] });
+
 
 // Function to get coordinates from an address
 function searchLocation() {
@@ -63,8 +67,10 @@ function updateNumbers(lat, lon) {
             ]
             
             const tableBody = document.querySelector("#dataTable tbody");
+
+            ov_data = [ ["Month", "Solar Radiation", { role: "style" } ]];
             tableBody.innerHTML = "";
-            var sum = 0;
+            let sum = 0;
             
             for (const [key, value] of Object.entries(data)) {
                 const index = parseInt(key.slice(4, 6)) - 1; // Extract month part
@@ -75,14 +81,46 @@ function updateNumbers(lat, lon) {
                  * The invertor efficiency from DC to AC energy is 0.9
                  */
                 var AC_energy;
-                if (index < 12) 
+                if (index < 12) {
                     AC_energy = value * 20 * 0.18 * 0.9 * nrOfDays[index];
-                else
+                    ov_data.push(
+                        [columnNames[index], parseFloat(AC_energy.toFixed(2)), "#000"]
+                    );
+                }
+                else {
                     AC_energy = sum;
+                    document.getElementById("averageData").innerHTML = "Average" + ": " + value.toFixed(2);
+                }
                 row.innerHTML = `<td>${columnNames[index]}</td><td>${AC_energy.toFixed(2)}</td>`;
                 tableBody.appendChild(row);
                 sum += AC_energy;
             }
+            
+            drawChart(ov_data);
+
         })
         .catch(error => console.error("Error fetching data:", error));
+}
+
+
+function drawChart(ov_data) {
+    var data = google.visualization.arrayToDataTable(ov_data);
+
+    var view = new google.visualization.DataView(data);
+    view.setColumns([0, 1,
+                        { calc: "stringify",
+                        sourceColumn: 1,
+                        type: "string",
+                        role: "annotation" },
+                        2]);
+
+    var options = {
+        title: "Amount of Power, in g/cm^3",
+        width: "100%",
+        height: "100%",
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+    };
+    var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+    chart.draw(view, options);
 }
