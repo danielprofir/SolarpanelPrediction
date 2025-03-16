@@ -74,7 +74,7 @@ function updateNumbers(lat, lon) {
             
             for (const [key, value] of Object.entries(data)) {
                 const index = parseInt(key.slice(4, 6)) - 1; // Extract month part
-                const row = document.createElement("tr");
+                //const row = document.createElement("tr");
                 /** 
                  * We assume the industry standards, where the array size is 20 m2
                  * The efficiency of a solar panel is 0.18
@@ -89,10 +89,10 @@ function updateNumbers(lat, lon) {
                 }
                 else {
                     AC_energy = sum;
-                    document.getElementById("averageData").innerHTML = "Average" + ": " + AC_energy.toFixed(2);
+                    document.getElementById("averageData").innerHTML = "Annual" + ": " + AC_energy.toFixed(2) + "kWh";
                 }
-                row.innerHTML = `<td>${columnNames[index]}</td><td>${AC_energy.toFixed(2)}</td>`;
-                tableBody.appendChild(row);
+                //row.innerHTML = `<td>${columnNames[index]}</td><td>${AC_energy.toFixed(2)}</td>`;
+                //tableBody.appendChild(row);
                 sum += AC_energy;
             }
             
@@ -102,25 +102,63 @@ function updateNumbers(lat, lon) {
         .catch(error => console.error("Error fetching data:", error));
 }
 
+function getColorGradient(value, minValue, maxValue) {
+    // Normalize the value to a range between 0 and 1
+    const normalized = (value - minValue) / (maxValue - minValue);
 
-function drawChart(ov_data) {
-    var data = google.visualization.arrayToDataTable(ov_data);
+    // Create a gradient from yellow (#FFFF00) to red (#FF0000)
+    const g = Math.round(255 * normalized); // Red increases from 255 to 255
+    const r = Math.round(255 * (1 - normalized)); // Green decreases from 255 to 0
+    const b = 0; // Blue remains 0
 
-    var view = new google.visualization.DataView(data);
-    view.setColumns([0, 1,
-                        { calc: "stringify",
-                        sourceColumn: 1,
-                        type: "string",
-                        role: "annotation" },
-                        2]);
-
-    var options = {
-        title: "Amount of Power, in g/cm^3",
-        width: "100%",
-        height: "100%",
-        bar: {groupWidth: "95%"},
-        legend: { position: "none" },
-    };
-    var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
-    chart.draw(view, options);
+    return rgbToHex(r, g, b);
 }
+
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+  }
+  
+  function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+  }
+  
+
+      function drawChart(ov_data) {
+        const values = ov_data.slice(1).map(row => row[1]);
+        const minValue = Math.min(...values);
+        const maxValue = Math.max(...values);
+
+        let ignore_first = false;
+        const coloredData = ov_data.map(row => {
+            if (ignore_first) {
+                const value = row[1];
+                const color = getColorGradient(value, minValue, maxValue);
+                return [row[0], value, color]; // [Month, Value, Color]
+            }
+            ignore_first = true;
+            return row; // Keep header row unchanged
+        });
+        
+        var data = google.visualization.arrayToDataTable(coloredData);
+
+        var view = new google.visualization.DataView(data);
+
+        view.setColumns([0, 1,
+                         { calc: "stringify",
+                           sourceColumn: 1,
+                           type: "string",
+                           role: "annotation" },
+                         2]);
+  
+        var options = {
+          title: "Amount of Power, in kWh",
+          width: "100%",
+          height: "100%",
+          bar: {groupWidth: "95%"},
+          legend: { position: "none" },
+          colors: coloredData.slice(1).map(row => row[2])
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+        chart.draw(view, options);
+    }
