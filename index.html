@@ -6,6 +6,7 @@
     <link href= "styles/style.css" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/png" href="./Photos/Logo.png">
     <title>Title</title>
+
    
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -14,7 +15,10 @@
 
 <body>
     <div class="topnav">
-            <input type="text" placeholder="Input your address">
+        <form id="searchForm" onsubmit="handleSearch(event)">
+            <input type="text" placeholder="Input your address" id="searchInput">
+            <button type="submit">Search</button>
+        </form>
       </div>
     <div id="map"></div>
     <script src="script.js"></script>
