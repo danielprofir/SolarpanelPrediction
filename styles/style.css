@@ -1,5 +1,11 @@
 
-#map {
+.container {
+    display: flex;
+
+
+}
+
+#map {  
     width: 500px;
     margin-left: 1%;
     height: 500px;
@@ -110,11 +116,14 @@ background-color: #f4f4f4;
 
 
 #loadingCircle {
-    display: none;  /* Hidden by default */
-    margin-top: 20px;
-    position: relative;
-    width: 60px;  /* Ensuring it’s a perfect circle */
-    height: 60px; /* Same as width to keep it a circle */
+    display: none; /* Hidden by default */
+    position: absolute; /* Position it absolutely within the chart container */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for exact centering */
+    z-index: 10; /* Ensure it appears above the chart container */
+    width: 60px; /* Circle width */
+    height: 60px; /* Circle height */
 }
 
 .circle {
@@ -153,4 +162,12 @@ background-color: #f4f4f4;
     font-size: 18px; /* Increased font size for visibility */
     font-weight: bold;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Subtle text shadow for glow effect */
+    z-index: 0;
+}
+
+.chart-container {
+    flex: 1;
+    text-align: center;
+    margin-left: 1%;
+    margin-right: 1%;
 }

@@ -25,43 +25,21 @@
         <input type="text" id="addressInput" placeholder="Enter an address">
         <button id="startButton" onclick="searchLocation()">Search</button>
     </div>
-  
+    
+    <div class="container">
       <div id="map"></div>
+      <div class="chart-container">
+        <h2 id="averageData"></h2>
+        <div id="columnchart_values" style="width: 100%; height: 300px;"></div>
+      </div>
+    </div>
+    <div id="loadingCircle" style="display:none;">
+        <div class="circle"></div> <!-- This will be your spinning circle -->
+    </div>
       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
       <script src="script.js"></script>
-
-      <div id="loadingCircle" style="display:none;">
-        <div class="circle"></div> <!-- This will be your spinning circle -->
-      
-  
-
-    </div>
- 
-
-    <div >
-        <h2 id="averageData">
-        </h2>
-    </div>
-  <div id="columnchart_values" style="width: 100%; height: 300px;"></div>
-    <table id="dataTable">
-        <thead>
-            <tr>
-                <th>Month</th>
-                <th>Value</th>
-            </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
-    </table>
+    
 
 </body>
     
 </html>
-
-
-    
-
-
-
-
