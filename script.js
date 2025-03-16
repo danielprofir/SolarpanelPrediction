@@ -6,6 +6,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
+<<<<<<< HEAD
 var marker; // Variable to hold the marker
 
 // Function to get coordinates from an address
@@ -41,4 +42,15 @@ function searchLocation() {
             }
         })
         .catch(error => console.error("Error fetching location:", error));
+=======
+function handleSearch(event){
+    event.preventDefault();
+
+    const searchInput = document.getElementById("searchInput").value.trim();
+
+    if(searchInput == "") {
+        return;
+    }
+
+>>>>>>> 8a2a6c142e4de6a70af21073b3f4603e9fda6465
 }
