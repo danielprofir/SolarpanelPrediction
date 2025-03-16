@@ -50,7 +50,7 @@ function searchLocation() {
 }
 
 function updateNumbers(lat, lon) {
-    fetch(`https://power.larc.nasa.gov/api/temporal/monthly/point?parameters=ALLSKY_SFC_SW_DWN&community=SB&longitude=${lon}&latitude=${lat}&start=2023&end=2023`)
+    fetch(`https://power.larc.nasa.gov/api/temporal/monthly/point?parameters=ALLSKY_SFC_SW_DWN&community=RE&longitude=${lon}&latitude=${lat}&start=2023&end=2023`)
         .then(response => response.json())
         .then(data => {
             data = data['properties']['parameter']['ALLSKY_SFC_SW_DWN']
@@ -59,29 +59,41 @@ function updateNumbers(lat, lon) {
             const columnNames = [
                 "January", "February", "March", "April", "May", "June", 
                 "July", "August", "September", "October", "November", "December",
-                "Average",
+                "Annual",
             ];
+
+            const nrOfDays = [
+                31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
+            ]
             
             const tableBody = document.querySelector("#dataTable tbody");
 
-            let sum = 0, count = 0;
-
             ov_data = [ ["Month", "Solar Radiation", { role: "style" } ]];
             tableBody.innerHTML = "";
-
+            let sum = 0;
             
             for (const [key, value] of Object.entries(data)) {
                 const index = parseInt(key.slice(4, 6)) - 1; // Extract month part
-                const row = document.createElement("tr");
-                row.innerHTML = `<td>${columnNames[index]}</td><td>${value.toFixed(2)}</td>`;
-                if (index != 12)
+                //const row = document.createElement("tr");
+                /** 
+                 * We assume the industry standards, where the array size is 20 m2
+                 * The efficiency of a solar panel is 0.18
+                 * The invertor efficiency from DC to AC energy is 0.9
+                 */
+                var AC_energy;
+                if (index < 12) {
+                    AC_energy = value * 20 * 0.18 * 0.9 * nrOfDays[index];
                     ov_data.push(
-                        [columnNames[index], parseFloat(value.toFixed(2)), "#000"]
+                        [columnNames[index], parseFloat(AC_energy.toFixed(2)), "#000"]
                     );
-                if (index == 12){
-                    document.getElementById("averageData").innerHTML = "Average" + ": " + value.toFixed(2);
                 }
-                tableBody.appendChild(row);
+                else {
+                    AC_energy = sum;
+                    document.getElementById("averageData").innerHTML = "Annual" + ": " + AC_energy.toFixed(2) + "kWh";
+                }
+                //row.innerHTML = `<td>${columnNames[index]}</td><td>${AC_energy.toFixed(2)}</td>`;
+                //tableBody.appendChild(row);
+                sum += AC_energy;
             }
             
             drawChart(ov_data);
@@ -140,7 +152,7 @@ function componentToHex(c) {
                          2]);
   
         var options = {
-          title: "Amount of Power, in g/cm^3",
+          title: "Amount of Power, in kWh",
           width: "100%",
           height: "100%",
           bar: {groupWidth: "95%"},
