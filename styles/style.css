@@ -13,7 +13,6 @@
 body, html {
     display: flex;
     flex-direction: column;
-    font-family: Arial, sans-serif;
     text-align: center;
     height: 100%;
     margin: 0;
@@ -21,7 +20,7 @@ body, html {
 
 /* The hero image */
 .hero-image {
-    background-image: url("../Photos/photo.jpg");
+    background-image: url("../Photos/b.jpg");
     height: 20%;
     background-position: center;
     background-repeat: no-repeat;
@@ -32,8 +31,22 @@ body, html {
 .hero-text {
     text-align: left;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
+    font-family: Century Gothic;
+    top: calc(50% - 21px);
+    left: 5%; /* Adjust this value to control the distance from the left */
+    transform: translateY(-50%);
+    color: #036c46;
+    width: 500 px;
+    font-size: 22px;
+}
+.hero-textt {
+    text-align: left;
+    position: absolute;
+    font-family: Century Gothic;
+    top: calc(50% + 31px); /* Moves it 10px down from 50% */
+    left: 5%;
+    transform: translateY(-50%);
+    color: #025f50;
+    width: 400px; /* Fixed typo (removed extra space between 400 and px) */
+    font-size: 17px;
 }
