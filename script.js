@@ -52,9 +52,10 @@ function updateNumbers(lat, lon) {
             data = data['properties']['parameter']['ALLSKY_SFC_SW_DWN']
             console.log(data)
 
-            const monthNames = [
+            const columnNames = [
                 "January", "February", "March", "April", "May", "June", 
-                "July", "August", "September", "October", "November", "December"
+                "July", "August", "September", "October", "November", "December",
+                "Average",
             ];
             
             const tableBody = document.querySelector("#dataTable tbody");
