@@ -62,9 +62,9 @@ function updateNumbers(lat, lon) {
             let sum = 0, count = 0;
             
             for (const [key, value] of Object.entries(data)) {
-                const monthIndex = parseInt(key.slice(4, 6)) - 1; // Extract month part
+                const index = parseInt(key.slice(4, 6)) - 1; // Extract month part
                 const row = document.createElement("tr");
-                row.innerHTML = `<td>${monthNames[monthIndex]}</td><td>${value.toFixed(2)}</td>`;
+                row.innerHTML = `<td>${columnNames[index]}</td><td>${value.toFixed(2)}</td>`;
                 tableBody.appendChild(row);
                 sum += value;
                 count++;
