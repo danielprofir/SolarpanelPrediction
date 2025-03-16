@@ -89,7 +89,7 @@ function updateNumbers(lat, lon) {
                 }
                 else {
                     AC_energy = sum;
-                    document.getElementById("averageData").innerHTML = "Average" + ": " + value.toFixed(2);
+                    document.getElementById("averageData").innerHTML = "Average" + ": " + AC_energy.toFixed(2);
                 }
                 row.innerHTML = `<td>${columnNames[index]}</td><td>${AC_energy.toFixed(2)}</td>`;
                 tableBody.appendChild(row);
